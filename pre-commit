@@ -323,10 +323,10 @@ test -z "$bad" || die "$bad"
 #-----------------------------------------------------------------------------
 # test 80 characters.
 
-number_line_over_80=$(git grep -n '.\{80,\}' -- *.cxx | wc -l)
-bad=$(test -z number_line_over_80)
+number_line_over_80=$(git grep -c -n '.\{80,\}' -- *.cxx)
+bad=$(test "$number_line_over_80" != "0" )
 
-test -z "$bad" || die "$(git grep -n '.\{80,\}' -- *.cxx)"
+test "$bad" || die "$(git grep -n '.\{80,\}' -- *.cxx)"
 
 #-----------------------------------------------------------------------------
 # Chain to project-specific hook.
